@@ -1,143 +1,356 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anh Linh - Website cá nhân</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            padding: 50px;
-            max-width: 600px;
-            width: 90%;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease;
-        }
-
-        .avatar {
-            font-size: 70px;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        button {
-            background: white;
-            color: #764ba2;
-            border: none;
-            border-radius: 30px;
-            padding: 15px 35px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #ffeaa7;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        #message {
-            margin-top: 25px;
-            font-size: 20px;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 27px; }
-            p { font-size: 16px; }
-            .container { padding: 35px 20px; }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Văn Anh &amp; Lưu Linh | Thiệp cưới</title>
+  <meta name="description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 1 tháng 11, 2026 | Nhà văn hoá cụm 4, TDP An Thắng, Phường Tân An, TP Bắc Ninh">
+  <meta name="theme-color" content="#511419">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:title" content="Văn Anh &amp; Lưu Linh">
+  <meta property="og:description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 1 tháng 11, 2026">
+  <meta property="og:image" content="assets/anh-cuoi/6.jpeg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1363">
+  <meta property="og:image:height" content="2048">
+  <meta property="og:image:alt" content="Ảnh cưới của Văn Anh và Lưu Linh">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23511419' d='M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lora:wght@400;600&family=Montserrat:wght@400;500;600&family=Ms+Madi&family=The+Nautigal&family=Viaoda+Libre&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="assets/js/main.js" defer></script>
 </head>
+<body class="is-locked">
 
-<body>
-<main class="container">
-    <div class="avatar">👋</div>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-direction" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 11l18-8-8 18-2-8-8-2z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></symbol>
+  </svg>
 
-    <h1>Xin chào, tôi là Anh Linh!</h1>
+  <!-- ============ COVER (opening screen) ============ -->
+  <div class="cover" id="cover">
+    <div class="cover__hearts" aria-hidden="true">
+      <i style="--x:68%;--s:19px;--c:#7a1f26;--sway:-5px;--d:25s;--delay:-24s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:93%;--s:12px;--c:#c9a24a;--sway:-23px;--d:25s;--delay:-3s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:82%;--s:13px;--c:#a8323b;--sway:12px;--d:21s;--delay:-9s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:55%;--s:12px;--c:#ece4d8;--sway:5px;--d:18s;--delay:-10s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:34%;--s:11px;--c:#7a1f26;--sway:3px;--d:26s;--delay:-15s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:8%;--s:16px;--c:#c9a24a;--sway:25px;--d:25s;--delay:-2s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:53%;--s:11px;--c:#c9a24a;--sway:3px;--d:21s;--delay:-9s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:90%;--s:18px;--c:#a8323b;--sway:10px;--d:21s;--delay:-9s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:38%;--s:13px;--c:#ece4d8;--sway:23px;--d:21s;--delay:-3s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:30%;--s:10px;--c:#7a1f26;--sway:-26px;--d:23s;--delay:-5s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:64%;--s:10px;--c:#a8323b;--sway:30px;--d:23s;--delay:-19s"><svg><use href="#i-heart"/></svg></i>
+      <i style="--x:85%;--s:19px;--c:#c9a24a;--sway:-26px;--d:25s;--delay:-25s"><svg><use href="#i-heart"/></svg></i>
+    </div>
 
-    <p>
-        Chào mừng bạn đến với website của tôi.
-        Đây là trang web đầu tiên được triển khai trên Vercel! 🚀
-    </p>
+    <div class="cover__card-wrap">
+      <div class="cover__seal" aria-hidden="true"><svg><use href="#i-heart"/></svg></div>
+      <div class="cover__card">
+        <div class="cover__paper" aria-hidden="true">
+          <img class="cover__flora cover__flora--tl" src="assets/images/flower2-decoration.webp" alt="">
+          <img class="cover__flora cover__flora--br" src="assets/images/flower2-decoration.webp" alt="">
+        </div>
+        <div class="cover__content">
+          <h1 class="cover__names">
+            <span>Văn Anh</span>
+            <span class="cover__amp">&amp;</span>
+            <span>Lưu Linh</span>
+          </h1>
+          <div class="ornament" aria-hidden="true"><i></i><span>❦</span><i></i></div>
+          <p class="cover__date" data-date-from="#party"><span data-part="long"></span></p>
+          <p class="cover__invite">Thân Mời</p>
+          <button class="cover__open" id="open-invitation" type="button">
+            Mở thiệp<span class="cover__shine" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <button onclick="sayHello()">
-        Click vào đây ❤️
-    </button>
+  <main class="invitation" id="invitation">
 
-    <div id="message"></div>
-</main>
+    <!-- ============ SAVE THE DATE ============ -->
+    <header class="hero">
+      <img class="castle castle--hero" src="assets/images/castle-background.webp" alt="" aria-hidden="true">
+      <p class="hero__eyebrow">Save The Date</p>
+      <div class="envelope">
+        <img class="envelope__back" src="assets/images/envelope-background.webp" alt="" aria-hidden="true">
+        <div class="envelope__photo">
+          <div class="envelope__frame">
+            <img src="assets/anh-cuoi/0.jpeg" alt="Ảnh cưới của Văn Anh và Lưu Linh">
+          </div>
+        </div>
+        <span class="envelope__flora" aria-hidden="true"><img src="assets/images/flower2-decoration.webp" alt=""></span>
+        <img class="envelope__front" src="assets/images/envelope-cover.webp" alt="" aria-hidden="true">
+      </div>
+      <div class="hero__names">
+        <p class="hero__name">Văn Anh</p>
+        <span class="hero__amp" aria-hidden="true">&amp;</span>
+        <p class="hero__name">Lưu Linh</p>
+      </div>
+    </header>
 
-<script>
-    function sayHello() {
-        const messages = [
-            "❤️ Chúc bạn một ngày thật tuyệt vời!",
-            "🎉 Cảm ơn bạn đã ghé thăm!",
-            "🚀 Website đã hoạt động thành công!",
-            "💖 Chào mừng đến với thế giới của Anh Linh!"
-        ];
+    <!-- ============ CEREMONY ============ -->
+    <section class="card-wrap reveal" aria-labelledby="ceremony-title">
+      <span class="flora flora--ceremony" aria-hidden="true"><img src="assets/images/flower2-decoration.webp" alt=""></span>
+      <div class="card">
+        <div class="card__body">
+          <h2 class="title" id="ceremony-title">Thông tin lễ cưới</h2>
 
-        const randomIndex = Math.floor(
-            Math.random() * messages.length
-        );
+          <div class="families">
+            <div class="family">
+              <span class="family__label">Gia đình nhà trai</span>
+              <span class="family__parent">Ông Nguyễn Văn A</span>
+              <span class="family__parent">Bà Nguyễn Thị B</span>
+              <span class="family__address">Địa chỉ nhà trai</span>
+            </div>
+            <span class="families__divider" aria-hidden="true"></span>
+            <div class="family">
+              <span class="family__label">Gia đình nhà gái</span>
+              <span class="family__parent">Ông Trần Văn C</span>
+              <span class="family__parent">Bà Trần Thị D</span>
+              <span class="family__address">Địa chỉ nhà gái</span>
+            </div>
+          </div>
 
-        document.getElementById("message").textContent =
-            messages[randomIndex];
-    }
-</script>
+          <p class="announce">TRÂN TRỌNG BÁO HỶ<br>LỄ THÀNH HÔN CỦA TỤI MÌNH</p>
+
+          <div class="couple">
+            <h3 class="couple__name">Văn Anh</h3>
+            <span class="couple__amp" aria-hidden="true">&amp;</span>
+            <h3 class="couple__name">Lưu Linh</h3>
+          </div>
+
+          <!-- Edit data-datetime only: weekday, date and lunar date below are generated from it -->
+          <div class="event" id="ceremony" data-datetime="2026-11-02T11:00">
+            <p class="event__heading">LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br>TƯ GIA NHÀ TRAI</p>
+            <div class="event__when"><span>Vào lúc <span data-part="time"></span></span><span data-part="weekday"></span></div>
+            <div class="event__date">
+              <span class="event__day" data-part="day"></span>
+              <span class="event__sep" aria-hidden="true"></span>
+              <span class="event__month-year"><span data-part="month"></span><span data-part="year"></span></span>
+            </div>
+            <p class="event__lunar" data-part="lunar"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ALBUM ============ -->
+    <section class="album reveal" aria-labelledby="album-title">
+      <img class="castle castle--album" src="assets/images/castle-background.webp" alt="" aria-hidden="true">
+      <h2 class="title title--wine" id="album-title">Album ảnh</h2>
+      <div class="coverflow" id="coverflow">
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/8.jpeg" alt="Ảnh cưới 1"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/9.jpeg" alt="Ảnh cưới 2"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/7.jpeg" alt="Ảnh cưới 3"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/1.jpeg" alt="Ảnh cưới 4"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/5.jpeg" alt="Ảnh cưới 5"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/10.jpeg" alt="Ảnh cưới 6"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/4.jpeg" alt="Ảnh cưới 7"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/2.jpeg" alt="Ảnh cưới 8"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/11.jpeg" alt="Ảnh cưới 9"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/3.jpeg" alt="Ảnh cưới 10"></button>
+      </div>
+      <p class="album__counter" id="album-counter" aria-live="polite"></p>
+    </section>
+
+    <!-- ============ RECEPTION ============ -->
+    <section class="card-wrap card-wrap--party reveal" aria-labelledby="party-title">
+      <span class="flora flora--party" aria-hidden="true"><img src="assets/images/flower2-decoration.webp" alt=""></span>
+      <div class="card card--party">
+        <div class="card__body">
+          <h2 class="title" id="party-title">Thông tin tiệc cưới</h2>
+
+          <!-- The cover date, month calendar and "add to calendar" link all read this data-datetime -->
+          <div class="event event--party" id="party" data-datetime="2026-11-01T16:00">
+            <h3 class="event__heading event__heading--strong">Tiệc cưới sẽ diễn ra vào lúc:</h3>
+            <div class="event__when"><span data-part="time"></span><span data-part="weekday"></span></div>
+            <div class="event__date">
+              <span class="event__day" data-part="day"></span>
+              <span class="event__sep" aria-hidden="true"></span>
+              <span class="event__month-year"><span data-part="month"></span><span class="event__year" data-part="year"></span></span>
+            </div>
+            <p class="event__lunar" data-part="lunar"></p>
+          </div>
+
+          <div class="calendar-block">
+            <div class="calendar" id="calendar" data-date-from="#party">
+              <p class="calendar__title" data-part="month-title"></p>
+              <div class="calendar__weekdays" aria-hidden="true">
+                <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+              </div>
+              <div class="calendar__days" id="calendar-days"></div>
+            </div>
+            <a class="add-calendar" id="add-to-calendar" href="https://calendar.google.com/" target="_blank" rel="noopener"
+               data-title="Đám cưới Văn Anh &amp; Lưu Linh" data-date-from="#party" data-location-from="#venue-address">Thêm vào lịch</a>
+          </div>
+
+          <button class="btn-pill btn-pill--cream" type="button" data-open-dialog="rsvp-dialog">XÁC NHẬN THAM DỰ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VENUE ============ -->
+    <section class="venue reveal" aria-labelledby="venue-title">
+      <img class="castle castle--venue" src="assets/images/castle-background.webp" alt="" aria-hidden="true">
+      <h2 class="title title--wine title--sm" id="venue-title">Tiệc cưới sẽ tổ chức tại</h2>
+      <p class="venue__address" id="venue-address">Nhà văn hoá cụm 4, TDP An Thắng, Phường Tân An, TP Bắc Ninh</p>
+      <iframe class="venue__map" title="Bản đồ địa điểm tổ chức tiệc cưới" loading="lazy" allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=776F%2BG66%20Nh%C3%A0%20v%C4%83n%20ho%C3%A1%20TDP%20Ph%E1%BB%91%20T%C3%A2n%20An%2C%20T%C3%A2n%20An%2C%20B%E1%BA%AFc%20Ninh&amp;z=16&amp;output=embed"></iframe>
+      <a class="venue__directions" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/dir/?api=1&amp;destination=776F%2BG66%20Nh%C3%A0%20v%C4%83n%20ho%C3%A1%20TDP%20Ph%E1%BB%91%20T%C3%A2n%20An%2C%20T%C3%A2n%20An%2C%20B%E1%BA%AFc%20Ninh">
+        <svg aria-hidden="true"><use href="#i-direction"/></svg>Chỉ đường
+      </a>
+    </section>
+
+    <!-- ============ GUESTBOOK ============ -->
+    <section class="guestbook reveal" aria-labelledby="guestbook-title">
+      <div class="note">
+        <img class="note__flora" src="assets/images/flower2-decoration.webp" alt="" aria-hidden="true">
+        <h2 class="title title--wine" id="guestbook-title">Sổ lưu bút</h2>
+        <form class="wish-form" id="wish-form">
+          <input class="field" name="name" type="text" placeholder="Nhập tên*" maxlength="100" required autocomplete="name" aria-label="Tên của bạn">
+          <textarea class="field" name="message" placeholder="Nhập lời chúc*" maxlength="1000" required aria-label="Lời chúc"></textarea>
+          <div class="wish-form__actions">
+            <button class="wand" type="button" id="suggest-wish" title="Gợi ý lời chúc" aria-label="Gợi ý lời chúc">🪄</button>
+            <button class="btn-pill btn-pill--wine" type="submit">GỬI LỜI CHÚC</button>
+          </div>
+          <p class="wish-form__status" id="wish-status" role="status"></p>
+        </form>
+      </div>
+      <div class="wishes" id="wish-list"></div>
+      <p class="wishes__empty" id="wish-empty">Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé!</p>
+    </section>
+
+    <!-- ============ GIFT BOX ============ -->
+    <section class="gift reveal" aria-labelledby="gift-title">
+      <img class="castle castle--gift" src="assets/images/castle-background.webp" alt="" aria-hidden="true">
+      <h2 class="title title--wine" id="gift-title">Hộp quà mừng</h2>
+      <button class="giftbox" type="button" id="giftbox" aria-label="Mở hộp quà mừng cưới">
+        <span class="giftbox__stage">
+          <span class="sparkle" style="top:8%;left:14%;font-size:22px" aria-hidden="true">✦</span>
+          <span class="sparkle" style="top:18%;right:10%;font-size:16px;animation-delay:-.6s" aria-hidden="true">✦</span>
+          <span class="sparkle" style="top:32%;left:5%;font-size:14px;animation-delay:-1.2s" aria-hidden="true">✦</span>
+          <span class="sparkle" style="top:26%;right:5%;font-size:14px;animation-delay:-1.8s" aria-hidden="true">✦</span>
+          <span class="confetti" aria-hidden="true">
+            <i style="--c:#ec4899;--tx:-70px;--ty:-90px"></i>
+            <i style="--c:#b58b2f;--tx:60px;--ty:-110px;border-radius:50%"></i>
+            <i style="--c:#22c55e;--tx:-100px;--ty:-40px"></i>
+            <i style="--c:#3b82f6;--tx:95px;--ty:-55px;border-radius:50%"></i>
+            <i style="--c:#a855f7;--tx:-30px;--ty:-125px"></i>
+            <i style="--c:#facc15;--tx:30px;--ty:-80px"></i>
+            <i style="--c:#511419;--tx:-55px;--ty:-140px"></i>
+            <i style="--c:#f97316;--tx:110px;--ty:-120px;border-radius:50%"></i>
+          </span>
+          <span class="giftbox__bob">
+            <span class="giftbox__shadow" aria-hidden="true"></span>
+            <img class="giftbox__mini" src="assets/images/giftbox-mini.webp" alt="" style="left:-20px;top:10px;width:34px;--r:-22deg">
+            <img class="giftbox__mini" src="assets/images/giftbox-mini.webp" alt="" style="left:168px;top:2px;width:38px;--r:20deg">
+            <img class="giftbox__mini" src="assets/images/giftbox-mini.webp" alt="" style="left:-16px;top:120px;width:26px;--r:-18deg">
+            <img class="giftbox__mini" src="assets/images/giftbox-mini.webp" alt="" style="left:182px;top:114px;width:24px;--r:14deg">
+            <img class="giftbox__main" src="assets/images/giftbox.webp" alt="">
+            <img class="giftbox__mini giftbox__mini--front" src="assets/images/giftbox-mini.webp" alt="" style="left:-8px;top:172px;width:44px;--r:8deg">
+            <img class="giftbox__mini giftbox__mini--front" src="assets/images/giftbox-mini.webp" alt="" style="left:26px;top:182px;width:26px;--r:-10deg">
+            <img class="giftbox__mini giftbox__mini--front" src="assets/images/giftbox-mini.webp" alt="" style="left:118px;top:176px;width:40px;--r:-14deg">
+          </span>
+        </span>
+        <span class="giftbox__hint">Nhấn để mở</span>
+      </button>
+    </section>
+
+    <footer class="thanks reveal">
+      <p>Cảm ơn bạn đã dành thời gian đến chung vui cùng tụi mình. Sự hiện diện và những lời chúc của bạn làm ngày đặc biệt này vui hơn rất nhiều!</p>
+    </footer>
+  </main>
+
+  <!-- ============ MUSIC: starts on "Mở thiệp"; the button hides itself until assets/music/music.mp3 exists ============ -->
+  <audio id="bg-music" src="assets/music/music.mp3" loop preload="metadata"></audio>
+  <button class="music" id="music-toggle" type="button" aria-label="Bật/tắt nhạc nền" aria-pressed="false" hidden>
+    <span class="music__disc" aria-hidden="true"></span>
+    <span class="music__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <svg class="music__note" aria-hidden="true"><use href="#i-note"/></svg>
+  </button>
+
+  <!-- ============ RSVP DIALOG ============ -->
+  <dialog class="dialog" id="rsvp-dialog" aria-labelledby="rsvp-title">
+    <div class="sheet">
+      <button class="sheet__close" type="button" data-close-dialog aria-label="Đóng"><svg><use href="#i-close"/></svg></button>
+      <form class="rsvp" id="rsvp-form">
+        <h2 class="sheet__title" id="rsvp-title">Xác nhận tham dự</h2>
+        <p class="sheet__desc">Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi. Xin xác nhận để chúng tôi chuẩn bị chu đáo nhất.</p>
+        <label class="sheet__label" for="rsvp-name">Tên của bạn</label>
+        <input class="sheet__input" id="rsvp-name" name="name" type="text" placeholder="Nhập tên của bạn" maxlength="100" required autocomplete="name">
+        <fieldset class="choices">
+          <legend class="sheet__label">Bạn sẽ đến chứ?</legend>
+          <label class="choice">
+            <input type="radio" name="attending" value="yes" required>
+            <span class="choice__icon"><svg><use href="#i-check"/></svg></span>
+            <span>Tôi sẽ đến</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="attending" value="no">
+            <span class="choice__icon"><svg><use href="#i-close"/></svg></span>
+            <span>Rất tiếc, tôi không thể đến</span>
+          </label>
+        </fieldset>
+        <button class="sheet__submit" type="submit">Gửi xác nhận</button>
+        <p class="sheet__error" id="rsvp-error" role="alert" hidden>Gửi chưa thành công, bạn thử lại giúp mình nhé.</p>
+      </form>
+      <div class="sheet__done" id="rsvp-done" hidden>
+        <svg class="sheet__done-icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        <h2 class="sheet__title">Cảm ơn bạn!</h2>
+        <p class="sheet__desc" id="rsvp-done-text"></p>
+        <button class="sheet__submit" type="button" data-close-dialog>Đóng</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ GIFT DIALOG (QR codes) ============ -->
+  <dialog class="dialog dialog--bottom" id="gift-dialog" aria-labelledby="gift-dialog-title">
+    <div class="gift-sheet">
+      <div class="gift-sheet__head">
+        <h2 class="title gift-sheet__title" id="gift-dialog-title">Hộp quà mừng</h2>
+        <button class="gift-sheet__close" type="button" data-close-dialog aria-label="Đóng"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="qr-list">
+        <figure class="qr">
+          <figcaption class="qr__label">Chú Rể</figcaption>
+          <div class="qr__frame"><img src="assets/images/qr-chu-re.jpg" alt="Mã QR mừng cưới chú rể"></div>
+          <a class="qr__save" href="assets/images/qr-chu-re.jpg" download="qr-chu-re.jpg"><svg aria-hidden="true"><use href="#i-download"/></svg>Lưu QR</a>
+        </figure>
+        <figure class="qr">
+          <figcaption class="qr__label">Cô Dâu</figcaption>
+          <div class="qr__frame"><img src="assets/images/qr-co-dau.jpg" alt="Mã QR mừng cưới cô dâu"></div>
+          <a class="qr__save" href="assets/images/qr-co-dau.jpg" download="qr-co-dau.jpg"><svg aria-hidden="true"><use href="#i-download"/></svg>Lưu QR</a>
+        </figure>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <dialog class="lightbox" id="lightbox" aria-label="Xem ảnh">
+    <div class="lightbox__inner">
+      <p class="lightbox__counter" id="lightbox-counter"></p>
+      <button class="lightbox__close" type="button" data-close-dialog aria-label="Đóng"><svg><use href="#i-close"/></svg></button>
+      <div class="lightbox__stage" id="lightbox-stage">
+        <button class="lightbox__nav lightbox__nav--prev" type="button" id="lightbox-prev" aria-label="Ảnh trước">‹</button>
+        <img class="lightbox__img" id="lightbox-img" alt="">
+        <button class="lightbox__nav lightbox__nav--next" type="button" id="lightbox-next" aria-label="Ảnh sau">›</button>
+      </div>
+      <div class="lightbox__thumbs" id="lightbox-thumbs"></div>
+    </div>
+  </dialog>
+
 </body>
 </html>
