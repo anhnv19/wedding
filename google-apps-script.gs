@@ -1,37 +1,21 @@
-// Stores RSVPs and guestbook wishes in the Google Sheet this script is attached to.
-// Setup steps are in README.md ("Lưu xác nhận tham dự & lời chúc vào Google Sheets").
+// Stores RSVPs in the Google Sheet this script is attached to.
+// Setup steps are in README.md ("Lưu xác nhận tham dự vào Google Sheets").
 
-const SHEET_NAMES = { rsvp: 'XacNhanThamDu', wish: 'LoiChuc' };
-const HEADERS = {
-  rsvp: ['Thời gian', 'Tên', 'Tham dự'],
-  wish: ['Thời gian', 'Tên', 'Lời chúc'],
-};
+const SHEET_NAME = 'XacNhanThamDu';
+const HEADERS = ['Thời gian', 'Tên', 'Tham dự'];
 
 function doPost(e) {
   const params = e.parameter;
-  const type = params.type === 'rsvp' ? 'rsvp' : 'wish';
-  const row = type === 'rsvp'
-    ? [new Date(), clean_(params.name, 100), clean_(params.attending, 10)]
-    : [new Date(), clean_(params.name, 100), clean_(params.message, 1000)];
-  sheetFor_(type).appendRow(row);
+  sheet_().appendRow([new Date(), clean_(params.name, 100), clean_(params.attending, 10)]);
   return json_({ ok: true });
 }
 
-function doGet() {
-  const rows = sheetFor_('wish').getDataRange().getValues().slice(1);
-  const wishes = rows
-    .reverse()
-    .slice(0, 200)
-    .map(([time, name, message]) => ({ time, name, message }));
-  return json_(wishes);
-}
-
-function sheetFor_(type) {
+function sheet_() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = spreadsheet.getSheetByName(SHEET_NAMES[type]);
+  let sheet = spreadsheet.getSheetByName(SHEET_NAME);
   if (!sheet) {
-    sheet = spreadsheet.insertSheet(SHEET_NAMES[type]);
-    sheet.appendRow(HEADERS[type]);
+    sheet = spreadsheet.insertSheet(SHEET_NAME);
+    sheet.appendRow(HEADERS);
   }
   return sheet;
 }

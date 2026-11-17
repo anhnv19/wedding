@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>wedding invitation - Văn Anh &amp; Lưu Linh</title>
-  <meta name="description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 1 tháng 11, 2026 | Nhà văn hoá cụm 4, TDP An Thắng, Phường Tân An, TP Bắc Ninh">
+  <meta name="description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 13 tháng 12, 2026 | Nhà văn hoá cụm 4, TDP An Thắng, Phường Tân An, TP Bắc Ninh">
   <meta name="theme-color" content="#511419">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="vi_VN">
   <meta property="og:title" content="Văn Anh &amp; Lưu Linh">
-  <meta property="og:description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 1 tháng 11, 2026">
+  <meta property="og:description" content="Thân mời quý khách đến dự lễ cưới của Văn Anh &amp; Lưu Linh | Chủ Nhật, 13 tháng 12, 2026">
   <meta property="og:image" content="assets/anh-cuoi/6.jpeg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1363">
@@ -17,14 +17,93 @@
   <meta property="og:image:alt" content="Ảnh cưới của Văn Anh và Lưu Linh">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23511419' d='M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E">
+  <script>
+    document.documentElement.classList.add('js');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
+  <!-- Loading screen styles are inline so it paints before the stylesheets below arrive -->
+  <style>
+    .loader { display: none; }
+    .js .loader {
+      position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; color: #f3e8de; text-align: center;
+      background: radial-gradient(120% 85% at 50% 42%, #6e1a20 0%, #511419 55%, #380a0e 100%);
+      transition: opacity .8s ease .2s, visibility 0s 1s;
+    }
+    .loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader__inner { position: relative; display: flex; flex-direction: column; align-items: center; transition: opacity .5s ease, transform .7s cubic-bezier(.4,0,.2,1); }
+    .loader.is-done .loader__inner { opacity: 0; transform: scale(1.06); }
+    .loader__rings { display: block; width: 150px; height: 108px; overflow: visible; }
+    .loader__ring { fill: none; stroke: url(#loader-gold); stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transform-box: fill-box; transform-origin: center; animation: loader-draw 1.5s cubic-bezier(.65,0,.35,1) .15s forwards; }
+    .loader__ring--left { transform: rotate(-90deg); }
+    .loader__ring--right { transform: rotate(90deg); animation-delay: .5s; }
+    .loader__gem { fill: #fbf3e6; stroke: #c9a24a; stroke-width: 1; stroke-linejoin: round; opacity: 0; transform-box: fill-box; transform-origin: center; animation: loader-pop .5s cubic-bezier(.34,1.56,.64,1) 1.35s forwards; }
+    .loader__heart { color: #e3a3ab; transform-box: fill-box; transform-origin: center; animation: loader-beat 1.6s ease-in-out infinite; }
+    .loader__names { margin: 18px 0 0; padding-left: .3em; font: 400 13px/1.5 "Times New Roman", Georgia, serif; letter-spacing: .3em; text-transform: uppercase; color: rgba(243,232,222,.92); }
+    .loader__names span { margin: 0 .2em; color: #d9b86a; }
+    .loader__date { min-height: 18px; margin: 6px 0 0; font: italic 400 13px/1.4 "Times New Roman", Georgia, serif; letter-spacing: .18em; color: #d9b86a; transition: opacity .4s; }
+    .loader__date:empty { opacity: 0; }
+    .loader__bar { position: relative; width: 168px; height: 2px; margin-top: 22px; overflow: hidden; border-radius: 2px; background: rgba(243,232,222,.16); }
+    .loader__bar span { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, #a9802f, #f3d98b, #c9a24a); transform: scaleX(0); transform-origin: left center; }
+    .loader__percent { margin: 10px 0 0; font: 400 11px/1 "Times New Roman", Georgia, serif; letter-spacing: .24em; font-variant-numeric: tabular-nums; color: rgba(243,232,222,.6); }
+    .loader__sparks i { position: absolute; bottom: -8px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%; background: #f3d98b; box-shadow: 0 0 6px 1px rgba(243,217,139,.6); opacity: 0; animation: loader-rise var(--d) ease-in var(--delay) infinite; }
+    @keyframes loader-draw { to { stroke-dashoffset: 0; } }
+    @keyframes loader-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+    @keyframes loader-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+    @keyframes loader-rise { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .9; } 100% { transform: translateY(-70vh); opacity: 0; } }
+    body.is-locked { overflow: hidden; }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lora:wght@400;600&family=Montserrat:wght@400;500;600&family=Ms+Madi&family=The+Nautigal&family=Viaoda+Libre&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- Stylesheets load without blocking the first paint; the loading screen waits for them -->
+  <link rel="preload" as="style" href="assets/css/style.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lora:wght@400;600&family=Montserrat:wght@400;500;600&family=Ms+Madi&family=The+Nautigal&family=Viaoda+Libre&display=swap">
+  <link rel="stylesheet" id="main-css" href="assets/css/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" id="fonts-css" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lora:wght@400;600&family=Montserrat:wght@400;500;600&family=Ms+Madi&family=The+Nautigal&family=Viaoda+Libre&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lora:wght@400;600&family=Montserrat:wght@400;500;600&family=Ms+Madi&family=The+Nautigal&family=Viaoda+Libre&display=swap">
+  </noscript>
   <script src="assets/js/main.js" defer></script>
 </head>
 <body class="is-locked">
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__sparks">
+      <i style="--x:12%;--s:3px;--d:7s;--delay:-1s"></i>
+      <i style="--x:24%;--s:2px;--d:9s;--delay:-4s"></i>
+      <i style="--x:37%;--s:4px;--d:8s;--delay:-6s"></i>
+      <i style="--x:52%;--s:2px;--d:10s;--delay:-2s"></i>
+      <i style="--x:63%;--s:3px;--d:7.5s;--delay:-5s"></i>
+      <i style="--x:76%;--s:2px;--d:9.5s;--delay:-7s"></i>
+      <i style="--x:88%;--s:4px;--d:8.5s;--delay:-3s"></i>
+    </div>
+    <div class="loader__inner">
+      <svg class="loader__rings" viewBox="0 0 150 108">
+        <defs>
+          <linearGradient id="loader-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f6e2a0"/>
+            <stop offset=".5" stop-color="#c9a24a"/>
+            <stop offset="1" stop-color="#ecd28a"/>
+          </linearGradient>
+          <radialGradient id="loader-glow">
+            <stop offset="0" stop-color="#c9a24a" stop-opacity=".28"/>
+            <stop offset="1" stop-color="#c9a24a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="75" cy="66" r="52" fill="url(#loader-glow)"/>
+        <circle class="loader__ring loader__ring--left" cx="61" cy="70" r="26" pathLength="100"/>
+        <circle class="loader__ring loader__ring--right" cx="89" cy="70" r="26" pathLength="100"/>
+        <path class="loader__gem" d="M55 41.5 L58 37.5 H64 L67 41.5 L61 49 Z M55 41.5 H67 M58 37.5 L61 41.5 L64 37.5"/>
+        <svg class="loader__heart" x="66" y="6" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>
+      </svg>
+      <p class="loader__names">Văn Anh<span>&amp;</span>Lưu Linh</p>
+      <p class="loader__date" data-date-from="#party"><span data-part="dotted"></span></p>
+      <div class="loader__bar"><span id="loader-bar"></span></div>
+      <p class="loader__percent" id="loader-percent">0%</p>
+    </div>
+  </div>
 
   <svg class="sprite" aria-hidden="true" focusable="false">
     <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></symbol>
@@ -33,6 +112,32 @@
     <symbol id="i-direction" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 11l18-8-8 18-2-8-8-2z"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></symbol>
     <symbol id="i-note" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="3">
+        <rect x="5.5" y="5.5" width="17" height="17" rx="4"/>
+        <rect x="41.5" y="5.5" width="17" height="17" rx="4"/>
+        <rect x="5.5" y="41.5" width="17" height="17" rx="4"/>
+      </g>
+      <g fill="currentColor">
+        <rect x="11" y="11" width="6" height="6" rx="1.5"/>
+        <rect x="47" y="11" width="6" height="6" rx="1.5"/>
+        <rect x="11" y="47" width="6" height="6" rx="1.5"/>
+        <rect x="28" y="6" width="4" height="4" rx="1"/>
+        <rect x="34" y="12" width="4" height="4" rx="1"/>
+        <rect x="28" y="17" width="4" height="4" rx="1"/>
+        <rect x="6" y="28" width="4" height="4" rx="1"/>
+        <rect x="14" y="33" width="4" height="4" rx="1"/>
+        <rect x="47" y="28" width="4" height="4" rx="1"/>
+        <rect x="54" y="34" width="4" height="4" rx="1"/>
+        <rect x="42" y="45" width="4" height="4" rx="1"/>
+        <rect x="54" y="45" width="4" height="4" rx="1"/>
+        <rect x="48" y="52" width="4" height="4" rx="1"/>
+        <rect x="34" y="54" width="4" height="4" rx="1"/>
+        <rect x="28" y="46" width="4" height="4" rx="1"/>
+      </g>
+      <circle cx="32" cy="32" r="11" fill="#fff"/>
+      <path fill="#a8323b" transform="translate(23 22.4) scale(.75)" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/>
+    </symbol>
   </svg>
 
   <!-- ============ COVER (opening screen) ============ -->
@@ -86,7 +191,7 @@
         <img class="envelope__back" src="assets/images/envelope-background.webp" alt="" aria-hidden="true">
         <div class="envelope__photo">
           <div class="envelope__frame">
-            <img src="assets/anh-cuoi/0.jpeg" alt="Ảnh cưới của Văn Anh và Lưu Linh">
+            <img src="assets/anh-cuoi/small/0.jpeg" alt="Ảnh cưới của Văn Anh và Lưu Linh">
           </div>
         </div>
         <span class="envelope__flora" aria-hidden="true"><img src="assets/images/flower2-decoration.webp" alt=""></span>
@@ -131,7 +236,7 @@
           </div>
 
           <!-- Edit data-datetime only: weekday, date and lunar date below are generated from it -->
-          <div class="event" id="ceremony" data-datetime="2026-11-02T11:00">
+          <div class="event" id="ceremony" data-datetime="2026-12-13T11:00">
             <p class="event__heading">LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI<br>TƯ GIA NHÀ TRAI</p>
             <div class="event__when"><span>Vào lúc <span data-part="time"></span></span><span data-part="weekday"></span></div>
             <div class="event__date">
@@ -146,20 +251,21 @@
     </section>
 
     <!-- ============ ALBUM ============ -->
+    <!-- Coverflow shows the small/ copy; the lightbox opens the full-size photo from data-full -->
     <section class="album reveal" aria-labelledby="album-title">
       <img class="castle castle--album" src="assets/images/castle-background.webp" alt="" aria-hidden="true">
       <h2 class="title title--wine" id="album-title">Album ảnh</h2>
       <div class="coverflow" id="coverflow">
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/8.jpeg" alt="Ảnh cưới 1"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/9.jpeg" alt="Ảnh cưới 2"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/7.jpeg" alt="Ảnh cưới 3"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/1.jpeg" alt="Ảnh cưới 4"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/5.jpeg" alt="Ảnh cưới 5"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/10.jpeg" alt="Ảnh cưới 6"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/4.jpeg" alt="Ảnh cưới 7"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/2.jpeg" alt="Ảnh cưới 8"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/11.jpeg" alt="Ảnh cưới 9"></button>
-        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/3.jpeg" alt="Ảnh cưới 10"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/8.jpeg" data-full="assets/anh-cuoi/8.jpeg" alt="Ảnh cưới 1" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/9.jpeg" data-full="assets/anh-cuoi/9.jpeg" alt="Ảnh cưới 2" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/7.jpeg" data-full="assets/anh-cuoi/7.jpeg" alt="Ảnh cưới 3" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/1.jpeg" data-full="assets/anh-cuoi/1.jpeg" alt="Ảnh cưới 4" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/5.jpeg" data-full="assets/anh-cuoi/5.jpeg" alt="Ảnh cưới 5" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/10.jpeg" data-full="assets/anh-cuoi/10.jpeg" alt="Ảnh cưới 6" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/4.jpeg" data-full="assets/anh-cuoi/4.jpeg" alt="Ảnh cưới 7" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/2.jpeg" data-full="assets/anh-cuoi/2.jpeg" alt="Ảnh cưới 8" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/11.jpeg" data-full="assets/anh-cuoi/11.jpeg" alt="Ảnh cưới 9" decoding="async"></button>
+        <button class="coverflow__item" type="button"><img src="assets/anh-cuoi/small/3.jpeg" data-full="assets/anh-cuoi/3.jpeg" alt="Ảnh cưới 10" decoding="async"></button>
       </div>
       <p class="album__counter" id="album-counter" aria-live="polite"></p>
     </section>
@@ -171,8 +277,8 @@
         <div class="card__body">
           <h2 class="title" id="party-title">Thông tin tiệc cưới</h2>
 
-          <!-- The cover date, month calendar and "add to calendar" link all read this data-datetime -->
-          <div class="event event--party" id="party" data-datetime="2026-11-01T16:00">
+          <!-- The cover date, loading screen, month calendar and "add to calendar" link all read this data-datetime -->
+          <div class="event event--party" id="party" data-datetime="2026-12-13T16:00">
             <h3 class="event__heading event__heading--strong">Tiệc cưới sẽ diễn ra vào lúc:</h3>
             <div class="event__when"><span data-part="time"></span><span data-part="weekday"></span></div>
             <div class="event__date">
@@ -212,25 +318,6 @@
          href="https://www.google.com/maps/dir/?api=1&amp;destination=776F%2BG66%20Nh%C3%A0%20v%C4%83n%20ho%C3%A1%20TDP%20Ph%E1%BB%91%20T%C3%A2n%20An%2C%20T%C3%A2n%20An%2C%20B%E1%BA%AFc%20Ninh">
         <svg aria-hidden="true"><use href="#i-direction"/></svg>Chỉ đường
       </a>
-    </section>
-
-    <!-- ============ GUESTBOOK ============ -->
-    <section class="guestbook reveal" aria-labelledby="guestbook-title">
-      <div class="note">
-        <img class="note__flora" src="assets/images/flower2-decoration.webp" alt="" aria-hidden="true">
-        <h2 class="title title--wine" id="guestbook-title">Sổ lưu bút</h2>
-        <form class="wish-form" id="wish-form">
-          <input class="field" name="name" type="text" placeholder="Nhập tên*" maxlength="100" required autocomplete="name" aria-label="Tên của bạn">
-          <textarea class="field" name="message" placeholder="Nhập lời chúc*" maxlength="1000" required aria-label="Lời chúc"></textarea>
-          <div class="wish-form__actions">
-            <button class="wand" type="button" id="suggest-wish" title="Gợi ý lời chúc" aria-label="Gợi ý lời chúc">🪄</button>
-            <button class="btn-pill btn-pill--wine" type="submit">GỬI LỜI CHÚC</button>
-          </div>
-          <p class="wish-form__status" id="wish-status" role="status"></p>
-        </form>
-      </div>
-      <div class="wishes" id="wish-list"></div>
-      <p class="wishes__empty" id="wish-empty">Hãy là người đầu tiên gửi lời chúc đến cô dâu chú rể nhé!</p>
     </section>
 
     <!-- ============ GIFT BOX ============ -->
@@ -274,7 +361,7 @@
     </footer>
   </main>
 
-  <!-- ============ MUSIC: starts on "Mở thiệp"; the button hides itself until assets/music/music.mp3 exists ============ -->
+  <!-- ============ MUSIC: starts on "Mở thiệp"; the button hides itself if assets/music/music.mp3 is missing ============ -->
   <audio id="bg-music" src="assets/music/music.mp3" loop preload="metadata"></audio>
   <button class="music" id="music-toggle" type="button" aria-label="Bật/tắt nhạc nền" aria-pressed="false" hidden>
     <span class="music__disc" aria-hidden="true"></span>
@@ -317,6 +404,7 @@
   </dialog>
 
   <!-- ============ GIFT DIALOG (QR codes) ============ -->
+  <!-- Until a QR file exists the frame shows the placeholder icon and "Lưu QR" stays hidden -->
   <dialog class="dialog dialog--bottom" id="gift-dialog" aria-labelledby="gift-dialog-title">
     <div class="gift-sheet">
       <div class="gift-sheet__head">
@@ -326,12 +414,20 @@
       <div class="qr-list">
         <figure class="qr">
           <figcaption class="qr__label">Chú Rể</figcaption>
-          <div class="qr__frame"><img src="assets/images/qr-chu-re.jpg" alt="Mã QR mừng cưới chú rể"></div>
+          <div class="qr__frame">
+            <svg class="qr__placeholder" aria-hidden="true"><use href="#i-qr"/></svg>
+            <img class="qr__img" src="assets/images/qr-chu-re.jpg" alt="Mã QR mừng cưới chú rể" decoding="async">
+          </div>
+          <p class="qr__pending">Mã QR sẽ sớm được cập nhật</p>
           <a class="qr__save" href="assets/images/qr-chu-re.jpg" download="qr-chu-re.jpg"><svg aria-hidden="true"><use href="#i-download"/></svg>Lưu QR</a>
         </figure>
         <figure class="qr">
           <figcaption class="qr__label">Cô Dâu</figcaption>
-          <div class="qr__frame"><img src="assets/images/qr-co-dau.jpg" alt="Mã QR mừng cưới cô dâu"></div>
+          <div class="qr__frame">
+            <svg class="qr__placeholder" aria-hidden="true"><use href="#i-qr"/></svg>
+            <img class="qr__img" src="assets/images/qr-co-dau.jpg" alt="Mã QR mừng cưới cô dâu" decoding="async">
+          </div>
+          <p class="qr__pending">Mã QR sẽ sớm được cập nhật</p>
           <a class="qr__save" href="assets/images/qr-co-dau.jpg" download="qr-co-dau.jpg"><svg aria-hidden="true"><use href="#i-download"/></svg>Lưu QR</a>
         </figure>
       </div>

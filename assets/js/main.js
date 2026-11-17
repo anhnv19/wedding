@@ -2,26 +2,35 @@
   'use strict';
 
   const CONFIG = {
-    // Google Apps Script web app URL that stores RSVPs and wishes (see README). Empty = nothing is sent anywhere.
+    // Google Apps Script web app URL that stores RSVPs (see README). Empty = nothing is sent anywhere.
     formEndpoint: '',
     calendarTimezone: 'Asia/Ho_Chi_Minh',
     eventDurationHours: 2,
     albumAutoplayMs: 3500,
+    // Loading screen: shown at least this long so it never just flashes, and never longer than the cap on slow networks.
+    loaderMinMs: 1500,
+    loaderMaxMs: 8000,
+    // Slow automatic scroll after "Mở thiệp"; any touch, wheel or key press stops it.
+    autoScrollDelayMs: 900,
+    autoScrollPxPerSecond: 40,
   };
 
   const WEEKDAYS = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
   const HEAVENLY_STEMS = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
   const EARTHLY_BRANCHES = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
-  const SAMPLE_WISHES = [
-    'Chúc hai bạn trăm năm hạnh phúc, sớm có thiên thần nhỏ nhé! 💕',
-    'Chúc mừng hạnh phúc! Chúc hai bạn bạc đầu nghĩa phu thê, đồng hành trọn đời.',
-    'Chúc đôi uyên ương luôn yêu thương, thấu hiểu và cùng nhau vượt qua mọi thử thách.',
-    'Mừng ngày vui của hai bạn! Chúc tổ ấm mới luôn ngập tràn tiếng cười.',
-    'Chúc cô dâu chú rể trăm năm hạnh phúc, mãi mãi bên nhau như ngày đầu.',
-    'Chúc hai bạn có một đám cưới thật trọn vẹn và một cuộc sống hôn nhân viên mãn.',
-    'Chúc mừng hai bạn đã tìm được một nửa của mình. Hạnh phúc thật nhiều nhé!',
-    'Chúc gia đình nhỏ luôn bình an, ấm áp và tràn đầy yêu thương.',
+  // Sample text includes Vietnamese letters so the vietnamese unicode-range subset of each font is fetched too.
+  const FONT_SAMPLE_TEXT = 'Aa Ăă Đđ Ơơ Ưư ộ ừ ể &';
+  const FONTS_TO_PRELOAD = [
+    '400 1em "Viaoda Libre"',
+    '400 1em "Lora"',
+    '600 1em "Lora"',
+    '600 1em "Cormorant Garamond"',
+    '400 1em "The Nautigal"',
+    '400 1em "Ms Madi"',
+    '500 1em "Montserrat"',
   ];
+  const DIALOG_CLOSE_MS = 260;
+  const GIFT_OPEN_DELAY_MS = 380;
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -162,6 +171,7 @@
         month: `Tháng ${dt.m}`,
         year: String(dt.y),
         long: `${dt.d} tháng ${dt.m}, ${dt.y}`,
+        dotted: `${pad(dt.d)} · ${pad(dt.m)} · ${dt.y}`,
         'month-title': `Tháng ${dt.m} / ${dt.y}`,
         lunar: `(Tức ngày ${lunar.day} tháng ${lunar.month}${lunar.leap ? ' nhuận' : ''} năm ${lunarYearName(lunar.year)})`,
       };
@@ -207,6 +217,87 @@
     link.href = `https://calendar.google.com/calendar/render?${params}`;
   }
 
+  /* ---------- Loading screen ---------- */
+
+  // The <link> swaps media from "print" to "all" in its own onload attribute (see index.html).
+  function stylesheetReady(link) {
+    return new Promise((resolve) => {
+      if (!link || link.media !== 'print') {
+        resolve();
+        return;
+      }
+      link.addEventListener('load', resolve, { once: true });
+      link.addEventListener('error', resolve, { once: true });
+    });
+  }
+
+  function loadFonts() {
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    return Promise.all(FONTS_TO_PRELOAD.map((font) => document.fonts.load(font, FONT_SAMPLE_TEXT).catch(() => {})));
+  }
+
+  function preloadImage(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve;
+      img.src = url;
+    });
+  }
+
+  function imagesShownOnPage() {
+    const urls = $$('img[src]').filter((img) => !img.closest('dialog')).map((img) => img.src);
+    urls.push(new URL('assets/images/paper.webp', document.baseURI).href);
+    return [...new Set(urls)];
+  }
+
+  function setupLoadingScreen() {
+    const loader = $('#loader');
+    const bar = $('#loader-bar');
+    const percent = $('#loader-percent');
+    if (!loader || !bar || !percent) {
+      document.body.classList.add('is-ready');
+      return;
+    }
+
+    const mainStylesheet = stylesheetReady($('#main-css'));
+    const tasks = [
+      mainStylesheet,
+      stylesheetReady($('#fonts-css')).then(loadFonts),
+      ...imagesShownOnPage().map(preloadImage),
+    ];
+    let done = 0;
+    let stylesReady = false;
+    let timedOut = false;
+    tasks.forEach((task) => task.then(() => { done += 1; }));
+    mainStylesheet.then(() => { stylesReady = true; });
+    // The page is unusable without its stylesheet, so the cap only cuts off fonts and images.
+    window.setTimeout(() => { timedOut = true; }, CONFIG.loaderMaxMs);
+    window.setTimeout(() => { stylesReady = true; }, CONFIG.loaderMaxMs * 2);
+
+    const finish = () => {
+      window.setTimeout(() => {
+        window.scrollTo(0, 0);
+        loader.classList.add('is-done');
+        document.body.classList.add('is-ready');
+        window.setTimeout(() => loader.remove(), 1300);
+      }, Math.max(0, CONFIG.loaderMinMs - performance.now()));
+    };
+
+    let shown = 0;
+    const tick = () => {
+      const complete = stylesReady && (timedOut || done === tasks.length);
+      const target = complete ? 1 : Math.min(done / tasks.length, 0.98);
+      shown += (target - shown) * 0.08;
+      if (complete && shown > 0.996) shown = 1;
+      bar.style.transform = `scaleX(${shown.toFixed(4)})`;
+      percent.textContent = `${Math.round(shown * 100)}%`;
+      if (shown < 1) window.requestAnimationFrame(tick);
+      else finish();
+    };
+    window.requestAnimationFrame(tick);
+  }
+
   /* ---------- Cover & music ---------- */
 
   function setupMusic() {
@@ -214,20 +305,28 @@
     const button = $('#music-toggle');
     if (!audio || !button) return { play() {} };
     const sync = () => {
-      const playing = !audio.paused;
+      const playing = !audio.paused && !audio.ended;
       button.classList.toggle('is-playing', playing);
       button.setAttribute('aria-pressed', String(playing));
     };
-    const showButton = () => { button.hidden = false; };
+    const showButton = () => {
+      if (!audio.error) button.hidden = false;
+    };
     if (audio.readyState > 0) showButton();
     audio.addEventListener('loadedmetadata', showButton);
-    audio.addEventListener('play', sync);
-    audio.addEventListener('pause', sync);
+    audio.addEventListener('error', () => { button.hidden = true; });
+    ['play', 'playing', 'pause', 'ended'].forEach((type) => audio.addEventListener(type, sync));
     button.addEventListener('click', () => {
-      if (audio.paused) audio.play().catch(() => {});
+      if (audio.paused) audio.play().catch(sync);
       else audio.pause();
     });
-    return { play: () => audio.play().catch(() => {}) };
+    return {
+      // iOS ignores preload, so metadata never arrives before the first play(); show the button here instead.
+      play() {
+        showButton();
+        audio.play().catch(sync);
+      },
+    };
   }
 
   function burstHearts(origin) {
@@ -254,16 +353,18 @@
     }
   }
 
-  function setupCover(music, onOpened) {
+  function setupCover(music, { onReveal, onUnlock }) {
     const cover = $('#cover');
     const button = $('#open-invitation');
     const reveal = () => {
       document.body.classList.add('is-open');
-      onOpened();
+      onReveal();
     };
     const unlock = () => {
       if (cover) cover.hidden = true;
+      window.scrollTo(0, 0);
       document.body.classList.remove('is-locked');
+      onUnlock();
     };
     if (!cover || !button) {
       reveal();
@@ -278,6 +379,55 @@
       window.setTimeout(reveal, reducedMotion ? 0 : 1000);
       window.setTimeout(unlock, reducedMotion ? 50 : 1800);
     });
+  }
+
+  /* ---------- Auto scroll ---------- */
+
+  function setupAutoScroll() {
+    const STOP_EVENTS = ['touchstart', 'wheel', 'keydown', 'mousedown'];
+    let frame = null;
+    let timer = null;
+    let position = 0;
+    let lastTime = 0;
+
+    const stop = () => {
+      window.clearTimeout(timer);
+      timer = null;
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      frame = null;
+      STOP_EVENTS.forEach((type) => window.removeEventListener(type, stop));
+    };
+
+    const step = (now) => {
+      // The page is no longer where we left it: the guest scrolled (e.g. by dragging over the map).
+      if (Math.abs(window.scrollY - position) > 4) {
+        stop();
+        return;
+      }
+      const seconds = Math.min(now - lastTime, 100) / 1000;
+      lastTime = now;
+      const bottom = document.documentElement.scrollHeight - window.innerHeight;
+      position = Math.min(position + CONFIG.autoScrollPxPerSecond * seconds, bottom);
+      window.scrollTo(0, position);
+      if (position >= bottom) {
+        stop();
+        return;
+      }
+      frame = window.requestAnimationFrame(step);
+    };
+
+    const start = (delayMs = 0) => {
+      if (reducedMotion) return;
+      stop();
+      STOP_EVENTS.forEach((type) => window.addEventListener(type, stop, { passive: true }));
+      timer = window.setTimeout(() => {
+        position = window.scrollY;
+        lastTime = performance.now();
+        frame = window.requestAnimationFrame(step);
+      }, delayMs);
+    };
+
+    return { start, stop };
   }
 
   /* ---------- Album & lightbox ---------- */
@@ -309,6 +459,7 @@
     const count = items.length;
     let active = 0;
     let timer = null;
+    let inView = !('IntersectionObserver' in window);
     if (!count) return { pause() {}, resume() {} };
 
     const offsetOf = (index) => {
@@ -325,6 +476,7 @@
         const scale = distance === 0 ? 1 : distance === 1 ? 0.85 : 0.7;
         item.style.transform = `translateX(${d * 60}%) translateZ(${-150 * distance}px) rotateY(${d * 45}deg) scale(${scale})`;
         item.style.opacity = String([1, 0.75, 0.5, 0.3][distance] ?? 0);
+        item.style.visibility = distance > 3 ? 'hidden' : 'visible';
         item.style.zIndex = String(100 - distance);
         item.tabIndex = d === 0 ? 0 : -1;
         item.classList.toggle('is-active', d === 0);
@@ -342,7 +494,9 @@
     };
     const resume = () => {
       pause();
-      if (!reducedMotion && count > 1) timer = window.setInterval(() => goTo(active + 1), CONFIG.albumAutoplayMs);
+      if (inView && !document.hidden && !reducedMotion && count > 1) {
+        timer = window.setInterval(() => goTo(active + 1), CONFIG.albumAutoplayMs);
+      }
     };
 
     const wasSwiped = onSwipe(root, (step) => {
@@ -377,26 +531,45 @@
       resume();
     });
 
-    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : resume()));
+    if (!inView) {
+      new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        resume();
+      }).observe(root);
+    }
+    document.addEventListener('visibilitychange', resume);
     layout();
     resume();
     return { pause, resume };
   }
 
-  function setupLightbox(onClose) {
+  function setupLightbox(dialogs, onClose) {
     const dialog = $('#lightbox');
     const image = $('#lightbox-img');
     const counter = $('#lightbox-counter');
     const thumbs = $('#lightbox-thumbs');
     const stage = $('#lightbox-stage');
-    const photos = $$('#coverflow img').map((img) => ({ src: img.getAttribute('src'), alt: img.alt }));
+    const photos = $$('#coverflow img').map((img) => ({
+      small: img.getAttribute('src'),
+      full: img.dataset.full || img.getAttribute('src'),
+      alt: img.alt,
+    }));
     if (!dialog || !photos.length) return () => {};
     let index = 0;
 
     const show = (next) => {
       index = (next + photos.length) % photos.length;
-      image.src = photos[index].src;
-      image.alt = photos[index].alt;
+      const photo = photos[index];
+      // The cached small copy shows instantly; the full-size photo replaces it once downloaded.
+      image.src = photo.small;
+      image.alt = photo.alt;
+      if (photo.full !== photo.small) {
+        const full = new Image();
+        full.onload = () => {
+          if (photos[index] === photo) image.src = photo.full;
+        };
+        full.src = photo.full;
+      }
       counter.textContent = `${index + 1} / ${photos.length}`;
       Array.from(thumbs.children).forEach((thumb, n) => thumb.classList.toggle('is-active', n === index));
       const current = thumbs.children[index];
@@ -409,7 +582,7 @@
       thumb.className = 'lightbox__thumb';
       thumb.setAttribute('aria-label', `Xem ảnh ${n + 1}`);
       const img = document.createElement('img');
-      img.src = photo.src;
+      img.src = photo.small;
       img.alt = '';
       img.loading = 'lazy';
       thumb.append(img);
@@ -426,33 +599,66 @@
     const wasSwiped = onSwipe(stage, (step) => show(index + step));
     dialog.addEventListener('click', (event) => {
       const onEmptySpace = event.target === stage || event.target === dialog || event.target.classList.contains('lightbox__inner');
-      if (onEmptySpace && !wasSwiped()) dialog.close();
+      if (onEmptySpace && !wasSwiped()) dialogs.close(dialog);
     });
     dialog.addEventListener('close', onClose);
 
     return (start) => {
       show(start);
-      dialog.showModal();
+      dialogs.open(dialog);
     };
   }
 
-  /* ---------- Dialogs, RSVP, guestbook, gift ---------- */
+  /* ---------- Dialogs, RSVP, gift ---------- */
 
-  function setupDialogs() {
-    $$('[data-open-dialog]').forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        const dialog = $(`#${trigger.dataset.openDialog}`);
-        if (dialog && !dialog.open) dialog.showModal();
+  function setupDialogs(onOpen) {
+    const syncScrollLock = () => {
+      document.documentElement.classList.toggle('is-scroll-locked', $$('dialog[open]').length > 0);
+    };
+
+    const open = (dialog) => {
+      if (!dialog || dialog.open) return;
+      dialog.classList.remove('is-closing');
+      dialog.showModal();
+      syncScrollLock();
+      onOpen();
+    };
+
+    // Plays the closing animation first; the CSS animation lasts DIALOG_CLOSE_MS.
+    const close = (dialog) => {
+      if (!dialog || !dialog.open || dialog.classList.contains('is-closing')) return;
+      if (reducedMotion) {
+        dialog.close();
+        return;
+      }
+      dialog.classList.add('is-closing');
+      window.setTimeout(() => dialog.close(), DIALOG_CLOSE_MS);
+    };
+
+    $$('dialog').forEach((dialog) => {
+      dialog.addEventListener('close', () => {
+        dialog.classList.remove('is-closing');
+        syncScrollLock();
       });
-    });
-    $$('[data-close-dialog]').forEach((button) => {
-      button.addEventListener('click', () => button.closest('dialog')?.close());
+      // Esc / Android back button
+      dialog.addEventListener('cancel', (event) => {
+        event.preventDefault();
+        close(dialog);
+      });
     });
     $$('dialog.dialog').forEach((dialog) => {
       dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) dialog.close();
+        if (event.target === dialog) close(dialog);
       });
     });
+    $$('[data-open-dialog]').forEach((trigger) => {
+      trigger.addEventListener('click', () => open($(`#${trigger.dataset.openDialog}`)));
+    });
+    $$('[data-close-dialog]').forEach((button) => {
+      button.addEventListener('click', () => close(button.closest('dialog')));
+    });
+
+    return { open, close };
   }
 
   async function sendToSheet(payload) {
@@ -512,99 +718,40 @@
     });
   }
 
-  function formatWishTime(date) {
-    return `${date.getHours()}:${pad(date.getMinutes())}:${pad(date.getSeconds())} ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-  }
-
-  function renderWish({ name, message, time }) {
-    const item = document.createElement('article');
-    item.className = 'wish';
-    const head = document.createElement('div');
-    head.className = 'wish__head';
-    const author = document.createElement('span');
-    author.className = 'wish__name';
-    author.textContent = name;
-    const when = document.createElement('time');
-    when.className = 'wish__time';
-    const date = time instanceof Date ? time : new Date(time);
-    if (!Number.isNaN(date.getTime())) {
-      when.dateTime = date.toISOString();
-      when.textContent = formatWishTime(date);
-    }
-    head.append(author, when);
-    const text = document.createElement('p');
-    text.className = 'wish__message';
-    text.textContent = message;
-    item.append(head, text);
-    return item;
-  }
-
-  async function loadWishes(list) {
-    if (!CONFIG.formEndpoint) return;
-    try {
-      const response = await fetch(`${CONFIG.formEndpoint}?type=wish`);
-      if (!response.ok) return;
-      const wishes = await response.json();
-      if (!Array.isArray(wishes)) return;
-      list.replaceChildren(...wishes.filter((wish) => wish && wish.name && wish.message).map(renderWish));
-    } catch (error) {
-      console.error('[wedding] could not load wishes', error);
-    }
-  }
-
-  function setupGuestbook() {
-    const form = $('#wish-form');
-    const list = $('#wish-list');
-    const status = $('#wish-status');
-    if (!form || !list) return;
-    const submit = $('button[type="submit"]', form);
-    let lastSuggestion = -1;
-
-    $('#suggest-wish')?.addEventListener('click', () => {
-      let next = lastSuggestion;
-      while (next === lastSuggestion) next = Math.floor(Math.random() * SAMPLE_WISHES.length);
-      lastSuggestion = next;
-      form.elements.message.value = SAMPLE_WISHES[next];
-      form.elements.message.focus();
-    });
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const name = form.elements.name.value.trim();
-      const message = form.elements.message.value.trim();
-      if (!name || !message) {
-        status.textContent = 'Bạn nhập tên và lời chúc giúp mình nhé.';
-        return;
-      }
-      submit.disabled = true;
-      status.textContent = 'Đang gửi lời chúc...';
-      const sent = await sendToSheet({ type: 'wish', name, message });
-      submit.disabled = false;
-      if (!sent) {
-        status.textContent = 'Gửi chưa thành công, bạn thử lại giúp mình nhé.';
-        return;
-      }
-      list.prepend(renderWish({ name, message, time: new Date() }));
-      form.reset();
-      status.textContent = 'Cảm ơn lời chúc của bạn! 💌';
-    });
-
-    loadWishes(list);
-  }
-
-  function setupGiftBox() {
+  function setupGiftBox(dialogs) {
     const box = $('#giftbox');
     const dialog = $('#gift-dialog');
     if (!box || !dialog) return;
+    let opening = false;
     box.addEventListener('click', () => {
+      if (opening || dialog.open) return;
+      opening = true;
       box.classList.remove('is-bursting');
-      void box.offsetWidth;
+      void box.offsetWidth; // restart the burst animation
       box.classList.add('is-bursting');
       window.setTimeout(() => {
-        if (!dialog.open) dialog.showModal();
-      }, reducedMotion ? 0 : 600);
+        opening = false;
+        dialogs.open(dialog);
+      }, reducedMotion ? 0 : GIFT_OPEN_DELAY_MS);
     });
   }
+
+  function setupQrCodes() {
+    $$('.qr').forEach((qr) => {
+      const img = $('.qr__img', qr);
+      if (!img) return;
+      const settle = () => {
+        const loaded = img.naturalWidth > 0;
+        qr.classList.toggle('is-ready', loaded);
+        qr.classList.toggle('is-missing', !loaded);
+      };
+      if (img.complete) settle();
+      img.addEventListener('load', settle);
+      img.addEventListener('error', settle);
+    });
+  }
+
+  /* ---------- Reveal & idle animations ---------- */
 
   function setupReveal() {
     const targets = $$('.reveal');
@@ -622,19 +769,34 @@
     targets.forEach((target) => observer.observe(target));
   }
 
+  function pauseAnimationsOutOfView() {
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-offscreen', !entry.isIntersecting));
+    }, { rootMargin: '120px 0px' });
+    $$('.hero, .card-wrap, .gift').forEach((section) => observer.observe(section));
+  }
+
   /* ---------- Start ---------- */
 
   fillEventDates();
   renderCalendar();
   linkAddToCalendar();
-  setupDialogs();
+  setupLoadingScreen();
+
+  const autoScroll = setupAutoScroll();
+  const dialogs = setupDialogs(autoScroll.stop);
   setupRsvp();
-  setupGuestbook();
-  setupGiftBox();
+  setupGiftBox(dialogs);
+  setupQrCodes();
+  pauseAnimationsOutOfView();
 
   let album = null;
-  const openLightbox = setupLightbox(() => album && album.resume());
+  const openLightbox = setupLightbox(dialogs, () => album && album.resume());
   album = setupAlbum(openLightbox);
 
-  setupCover(setupMusic(), setupReveal);
+  setupCover(setupMusic(), {
+    onReveal: setupReveal,
+    onUnlock: () => autoScroll.start(CONFIG.autoScrollDelayMs),
+  });
 })();
