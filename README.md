@@ -41,8 +41,7 @@ Chỉ cần sửa `data-datetime`: thứ trong tuần, ngày âm lịch (tính t
 
 **Bản đồ:** mở Google Maps, tìm địa điểm → Chia sẻ → Nhúng bản đồ → copy giá trị `src` trong đoạn `<iframe>` và dán vào `src` của `venue__map`. Link "Chỉ đường" có dạng `https://www.google.com/maps/dir/?api=1&destination=<tên hoặc địa chỉ>`.
 
-**Ảnh xem trước khi gửi link qua Zalo/Facebook:** đang dùng `assets/anh-cuoi/6.jpeg` (thẻ `og:image` trong `<head>`). Sau khi đưa thiệp lên mạng, sửa thành đường dẫn đầy đủ để Zalo/Facebook hiển thị chắc chắn:
-`<meta property="og:image" content="https://<tên-miền-của-bạn>/assets/anh-cuoi/6.jpeg">`
+**Ảnh xem trước khi gửi link qua Zalo/Facebook:** dùng `assets/images/og-image.jpg` (1200×630, cắt từ `assets/anh-cuoi/6.jpeg`). Các thẻ `og:image`, `og:url`, `canonical` trong `<head>` phải là đường dẫn đầy đủ `https://wedding-linhanh.vercel.app/...`; đổi tên miền thì sửa cả 5 chỗ. Zalo/Facebook lưu preview cũ khá lâu: sau khi deploy, làm mới ở https://developers.facebook.com/tools/debug/ (bấm "Scrape Again") hoặc gửi link kèm đuôi mới, ví dụ `https://wedding-linhanh.vercel.app/?v=2`.
 
 ## Lưu xác nhận tham dự vào Google Sheets
 
