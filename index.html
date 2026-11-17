@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anh Linh - Website cá nhân</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px;
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        .avatar {
+            font-size: 70px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 35px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #ffeaa7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        #message {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 27px; }
+            p { font-size: 16px; }
+            .container { padding: 35px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+<main class="container">
+    <div class="avatar">👋</div>
+
+    <h1>Xin chào, tôi là Anh Linh!</h1>
+
+    <p>
+        Chào mừng bạn đến với website của tôi.
+        Đây là trang web đầu tiên được triển khai trên Vercel! 🚀
+    </p>
+
+    <button onclick="sayHello()">
+        Click vào đây ❤️
+    </button>
+
+    <div id="message"></div>
+</main>
+
+<script>
+    function sayHello() {
+        const messages = [
+            "❤️ Chúc bạn một ngày thật tuyệt vời!",
+            "🎉 Cảm ơn bạn đã ghé thăm!",
+            "🚀 Website đã hoạt động thành công!",
+            "💖 Chào mừng đến với thế giới của Anh Linh!"
+        ];
+
+        const randomIndex = Math.floor(
+            Math.random() * messages.length
+        );
+
+        document.getElementById("message").textContent =
+            messages[randomIndex];
+    }
+</script>
+</body>
+</html>
